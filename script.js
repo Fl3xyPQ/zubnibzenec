@@ -137,7 +137,7 @@ window.addEventListener('scroll', () => {
     document.querySelector('.scroll-progress').style.width = scrolled + '%';
 });
 
-// Back to Top Button
+
 const backToTop = document.querySelector('.back-to-top');
 
 if (backToTop) {
@@ -157,7 +157,7 @@ if (backToTop) {
     });
 }
 
-// Dark Mode Toggle
+
 const darkModeToggle = document.querySelector('.dark-mode-toggle');
 let darkMode = localStorage.getItem('darkMode') === 'true';
 
@@ -188,11 +188,11 @@ if (darkModeToggle) {
     });
 }
 
-// Stats Counter Animation
+
 const animateCounter = (element) => {
     const target = parseInt(element.getAttribute('data-target'));
-    const duration = 2000; // 2 seconds
-    const step = target / (duration / 16); // 60fps
+    const duration = 2000;
+    const step = target / (duration / 16);
     let current = 0;
 
     const updateCounter = () => {
@@ -208,23 +208,30 @@ const animateCounter = (element) => {
     updateCounter();
 };
 
-// Observe stats section
-const statsSection = document.querySelector('.stats-section');
-if (statsSection) {
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const numbers = entry.target.querySelectorAll('.stat-number');
-                numbers.forEach(num => animateCounter(num));
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
 
-    statsObserver.observe(statsSection);
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+        if ('IntersectionObserver' in window) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const numbers = entry.target.querySelectorAll('.stat-number');
+                        numbers.forEach(num => animateCounter(num));
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
 
-// Before/After Slider
+            statsObserver.observe(statsSection);
+        } else {
+            const numbers = statsSection.querySelectorAll('.stat-number');
+            numbers.forEach(num => animateCounter(num));
+        }
+    }
+});
+
+
 const comparisonSlider = document.getElementById('comparisonSlider');
 if (comparisonSlider) {
     const afterImage = document.querySelector('.after-image');
@@ -239,7 +246,7 @@ if (comparisonSlider) {
         updateSlider(e.target.value);
     });
 
-    // Touch and mouse support
+   
     let isDragging = false;
     const wrapper = document.querySelector('.before-after-wrapper');
 
@@ -252,7 +259,7 @@ if (comparisonSlider) {
         updateSlider(percentage);
     };
 
-    // Mouse events
+    
     wrapper.addEventListener('mousedown', (e) => {
         isDragging = true;
         handleMove(e.clientX);
@@ -268,7 +275,7 @@ if (comparisonSlider) {
         isDragging = false;
     });
 
-    // Touch events
+    
     wrapper.addEventListener('touchstart', (e) => {
         isDragging = true;
         handleMove(e.touches[0].clientX);
@@ -286,37 +293,41 @@ if (comparisonSlider) {
     });
 }
 
-// Health Questionnaire Toggle
-const startQuestionnaire = document.getElementById('startQuestionnaire');
-const questionnaireForm = document.getElementById('questionnaireForm');
-const questionnaireIntro = document.querySelector('.questionnaire-intro');
 
-if (startQuestionnaire) {
-    startQuestionnaire.addEventListener('click', () => {
-        questionnaireIntro.style.display = 'none';
-        questionnaireForm.style.display = 'block';
-    });
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const startQuestionnaire = document.getElementById('startQuestionnaire');
+    const questionnaireForm = document.getElementById('questionnaireForm');
+    const questionnaireIntro = document.querySelector('.questionnaire-intro');
 
-// PDF Download (placeholder)
-const downloadPDF = document.getElementById('downloadPDF');
-if (downloadPDF) {
-    downloadPDF.addEventListener('click', () => {
-        alert('Funkce stahování PDF bude brzy k dispozici!');
-    });
-}
+    if (startQuestionnaire && questionnaireForm && questionnaireIntro) {
+        startQuestionnaire.addEventListener('click', () => {
+            questionnaireIntro.style.display = 'none';
+            questionnaireForm.style.display = 'block';
+        });
+    }
 
-// Health Form Submit
-const healthForm = document.getElementById('healthForm');
-if (healthForm) {
-    healthForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Děkujeme! Váš dotazník byl odeslán.');
-        questionnaireForm.style.display = 'none';
-        questionnaireIntro.style.display = 'block';
-        healthForm.reset();
-    });
-}
+    
+    const downloadPDF = document.getElementById('downloadPDF');
+    if (downloadPDF) {
+        downloadPDF.addEventListener('click', () => {
+            alert('Funkce stahování PDF bude brzy k dispozici!');
+        });
+    }
+
+    // submit - dotaznik
+    const healthForm = document.getElementById('healthForm');
+    if (healthForm) {
+        healthForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Děkujeme! Váš dotazník byl odeslán.');
+            if (questionnaireForm && questionnaireIntro) {
+                questionnaireForm.style.display = 'none';
+                questionnaireIntro.style.display = 'block';
+            }
+            healthForm.reset();
+        });
+    }
+});
 
 // faq 
 document.addEventListener('DOMContentLoaded', () => {
