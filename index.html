@@ -44,7 +44,7 @@
                         <span></span>
                         <span></span>
                         <span></span>
-                    </tobutton>
+                    </button>
                     <ul class="nav-menu">
                         <li><a href="#home">Domů</a></li>
                         <li><a href="#about">O ordinaci</a></li>
@@ -52,11 +52,220 @@
                         <li><a href="#booking">Objednat se</a></li>
                         <li><a href="#faq">FAQ</a></li>
                         <li><a href="#contact">Kontakt</a></li>
+                        <li><a href="#" class="login-trigger"><i class="fas fa-user-circle"></i> Můj účet</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    <!-- Oznámení -->
+    <div class="announcement-banner" id="announcementBanner">
+        <div class="container">
+            <div class="announcement-content">
+                <i class="fas fa-info-circle announcement-icon"></i>
+                <p class="announcement-text" id="announcementText">
+                    <strong>Důležité oznámení:</strong> V termínu 15.-20. února bude ordinace uzavřena z důvodu dovolené. 
+                    Děkujeme za pochopení.
+                </p>
+                <button class="announcement-close" aria-label="Zavřít oznámení">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tlačítko pro znovuotevření oznámení -->
+    <button class="announcement-reopen" id="announcementReopen" style="display: none;" aria-label="Zobrazit oznámení">
+        <i class="fas fa-bell"></i>
+    </button>
+
+    <!-- Plovoucí admin tlačítko -->
+    <button class="admin-float-btn" id="editAnnouncement" aria-label="Admin panel">
+        <i class="fas fa-cog"></i>
+    </button>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel-modal" id="adminPanel">
+        <div class="admin-panel-content">
+            <div class="admin-panel-header">
+                <h3><i class="fas fa-shield-alt"></i> Admin Panel</h3>
+                <button class="admin-close" id="closeAdminPanel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Přihlášení -->
+            <div class="admin-login" id="adminLoginForm">
+                <h4>Přihlášení</h4>
+                <div class="form-group">
+                    <label>Heslo:</label>
+                    <input type="password" id="adminPassword" placeholder="Zadejte admin heslo">
+                </div>
+                <button class="btn btn-primary" id="adminLoginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Přihlásit se
+                </button>
+                <p class="admin-hint">Výchozí heslo: admin123</p>
+            </div>
+
+            <!-- Editor oznámení -->
+            <div class="admin-editor" id="adminEditor" style="display: none;">
+                <!-- Záložky -->
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="announcement">
+                        <i class="fas fa-bullhorn"></i> Oznámení
+                    </button>
+                    <button class="admin-tab" data-tab="contacts">
+                        <i class="fas fa-address-book"></i> Kontakty
+                    </button>
+                    <button class="admin-tab" data-tab="appointments">
+                        <i class="fas fa-calendar-alt"></i> Termíny
+                    </button>
+                    <button class="admin-tab" data-tab="reminders">
+                        <i class="fas fa-bell"></i> Připomínky
+                    </button>
+                </div>
+
+                <!-- Záložka: Oznámení -->
+                <div class="admin-tab-content active" id="tabAnnouncement">
+                    <h4>Upravit oznámení</h4>
+                    <div class="form-group">
+                        <label>Text oznámení:</label>
+                        <textarea id="adminAnnouncementText" rows="4" placeholder="Zadejte text oznámení..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="announcementActive"> Zobrazit oznámení na webu
+                        </label>
+                    </div>
+                    <button class="btn btn-primary" id="saveAnnouncement">
+                        <i class="fas fa-save"></i> Uložit oznámení
+                    </button>
+                </div>
+
+                <!-- Záložka: Kontakty -->
+                <div class="admin-tab-content" id="tabContacts">
+                    <h4>Kontaktní údaje</h4>
+                    <div class="form-group">
+                        <label>Telefon:</label>
+                        <input type="tel" id="adminPhone" placeholder="+420 123 456 789">
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="adminEmail" placeholder="ordinace@vyhnalova.cz">
+                    </div>
+                    <div class="form-group">
+                        <label>Adresa:</label>
+                        <input type="text" id="adminAddress" placeholder="Náměstí Svobody 123">
+                    </div>
+                    <div class="form-group">
+                        <label>PSČ a Město:</label>
+                        <input type="text" id="adminCity" placeholder="696 81 Bzenec">
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp číslo:</label>
+                        <input type="tel" id="adminWhatsapp" placeholder="420123456789">
+                    </div>
+                    <button class="btn btn-primary" id="saveContacts">
+                        <i class="fas fa-save"></i> Uložit kontakty
+                    </button>
+                </div>
+
+                <!-- Záložka: Termíny pacientů -->
+                <div class="admin-tab-content" id="tabAppointments">
+                    <h4>Správa termínů pacientů</h4>
+                    
+                    <div class="add-appointment-form">
+                        <h5><i class="fas fa-plus-circle"></i> Přidat nový termín</h5>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email pacienta:</label>
+                                <input type="email" id="appointmentEmail" placeholder="pacient@email.cz">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon pacienta:</label>
+                                <input type="tel" id="appointmentPhone" placeholder="+420 123 456 789">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Datum návštěvy:</label>
+                                <input type="date" id="appointmentDate">
+                            </div>
+                            <div class="form-group">
+                                <label>Čas návštěvy:</label>
+                                <input type="time" id="appointmentTime" value="10:00">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Typ ošetření:</label>
+                            <input type="text" id="appointmentType" placeholder="Preventivní kontrola">
+                        </div>
+                        <button class="btn btn-primary" id="addAppointment">
+                            <i class="fas fa-calendar-plus"></i> Přidat termín
+                        </button>
+                    </div>
+
+                    <div class="appointments-list-admin">
+                        <h5><i class="fas fa-list"></i> Nadcházející termíny</h5>
+                        <div id="adminAppointmentsList"></div>
+                    </div>
+
+                    <div class="send-reminders-section">
+                        <h5><i class="fas fa-paper-plane"></i> Test připomínek</h5>
+                        <p>Odešle připomínky všem pacientům, kteří mají termín během následujících 3 dnů.</p>
+                        <button class="btn btn-primary" id="sendRemindersNow">
+                            <i class="fas fa-bell"></i> Odeslat připomínky teď
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Záložka: Připomínky -->
+                <div class="admin-tab-content" id="tabReminders">
+                    <h4>Nastavení připomínek</h4>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="remindersEnabled"> Aktivovat automatické připomínky
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Kdy poslat připomínku:</label>
+                        <select id="reminderTiming">
+                            <option value="24">24 hodin před návštěvou</option>
+                            <option value="48">2 dny před návštěvou</option>
+                            <option value="72">3 dny před návštěvou</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Text SMS připomínky:</label>
+                        <textarea id="reminderSmsText" rows="3" placeholder="Dobrý den, připomínáme Vaši návštěvu zítra v 10:00. MUDr. Vyhnalová"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Text emailové připomínky:</label>
+                        <textarea id="reminderEmailText" rows="4" placeholder="Vážený pane/paní,&#10;připomínáme Vám objednanou návštěvu zubní ordinace..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" id="saveReminders">
+                        <i class="fas fa-save"></i> Uložit nastavení
+                    </button>
+                    
+                    <div class="reminder-preview">
+                        <h5><i class="fas fa-eye"></i> Ukázka připomínky</h5>
+                        <div class="preview-box">
+                            <strong>SMS:</strong>
+                            <p id="smsPreview">Dobrý den, připomínáme Vaši návštěvu zítra v 10:00. MUDr. Vyhnalová</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Akce pro celý panel -->
+                <div class="admin-actions" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                    <button class="btn btn-secondary" id="adminLogout">
+                        <i class="fas fa-sign-out-alt"></i> Odhlásit se
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- hero.lib -->
     <section id="home" class="hero">
@@ -195,6 +404,129 @@
                             <circle cx="200" cy="200" r="80" fill="#4A90E2" opacity="0.3"/>
                             <path d="M200 150C172.386 150 150 172.386 150 200V250C150 277.614 172.386 300 200 300C227.614 300 250 277.614 250 250V200C250 172.386 227.614 150 200 150Z" fill="#4A90E2"/>
                         </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interaktivní zubní mapa -->
+    <section class="dental-map-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Kde vás bolí?</h2>
+                <div class="section-line"></div>
+                <p class="section-description">Klikněte na zub v mapě a dozvíte se možné příčiny a doporučení</p>
+            </div>
+            
+            <div class="dental-map-container">
+                <div class="dental-map-visual">
+                    <div class="teeth-diagram">
+                        <!-- SVG Dental Chart -->
+                        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="dental-svg">
+                            <!-- Upper Jaw Background -->
+                            <path d="M 100 150 Q 400 50, 700 150" fill="#ff9999" opacity="0.3"/>
+                            
+                            <!-- Upper Teeth (Simplified representation) -->
+                            <!-- Right side (18-11) -->
+                            <rect class="svg-tooth" data-tooth="18" x="80" y="140" width="30" height="40" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="17" x="120" y="130" width="32" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="16" x="160" y="120" width="34" height="50" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="15" x="205" y="115" width="30" height="48" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="14" x="245" y="110" width="28" height="45" rx="5"/>
+                            <polygon class="svg-tooth" data-tooth="13" points="285,105 295,105 300,150 280,150" />
+                            <rect class="svg-tooth" data-tooth="12" x="315" y="100" width="25" height="42" rx="3"/>
+                            <rect class="svg-tooth" data-tooth="11" x="350" y="95" width="25" height="40" rx="3"/>
+                            
+                            <!-- Left side (21-28) -->
+                            <rect class="svg-tooth" data-tooth="21" x="425" y="95" width="25" height="40" rx="3"/>
+                            <rect class="svg-tooth" data-tooth="22" x="460" y="100" width="25" height="42" rx="3"/>
+                            <polygon class="svg-tooth" data-tooth="23" points="500,105 510,105 520,150 500,150" />
+                            <rect class="svg-tooth" data-tooth="24" x="527" y="110" width="28" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="25" x="565" y="115" width="30" height="48" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="26" x="605" y="120" width="34" height="50" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="27" x="648" y="130" width="32" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="28" x="690" y="140" width="30" height="40" rx="5"/>
+                            
+                            <!-- Lower Jaw Background -->
+                            <path d="M 100 450 Q 400 550, 700 450" fill="#ff9999" opacity="0.3"/>
+                            
+                            <!-- Lower Teeth -->
+                            <!-- Right side (48-41) -->
+                            <rect class="svg-tooth" data-tooth="48" x="80" y="420" width="30" height="40" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="47" x="120" y="410" width="32" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="46" x="160" y="400" width="34" height="50" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="45" x="205" y="395" width="30" height="48" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="44" x="245" y="390" width="28" height="45" rx="5"/>
+                            <polygon class="svg-tooth" data-tooth="43" points="285,390 295,390 300,435 280,435" />
+                            <rect class="svg-tooth" data-tooth="42" x="315" y="385" width="25" height="42" rx="3"/>
+                            <rect class="svg-tooth" data-tooth="41" x="350" y="380" width="25" height="40" rx="3"/>
+                            
+                            <!-- Left side (31-38) -->
+                            <rect class="svg-tooth" data-tooth="31" x="425" y="380" width="25" height="40" rx="3"/>
+                            <rect class="svg-tooth" data-tooth="32" x="460" y="385" width="25" height="42" rx="3"/>
+                            <polygon class="svg-tooth" data-tooth="33" points="500,390 510,390 520,435 500,435" />
+                            <rect class="svg-tooth" data-tooth="34" x="527" y="390" width="28" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="35" x="565" y="395" width="30" height="48" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="36" x="605" y="400" width="34" height="50" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="37" x="648" y="410" width="32" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="38" x="690" y="420" width="30" height="40" rx="5"/>
+                            
+                            <!-- Labels -->
+                            <text x="400" y="80" text-anchor="middle" class="jaw-label">Horní čelist</text>
+                            <text x="400" y="520" text-anchor="middle" class="jaw-label">Dolní čelist</text>
+                        </svg>
+                        
+                        <div class="dental-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot normal"></span>
+                                <span>Zdravý zub</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot selected"></span>
+                                <span>Vybraný zub</span>
+                            </div>
+                            <div class="legend-item">
+                                <i class="fas fa-hand-pointer"></i>
+                                <span>Klikněte na zub pro více informací</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tooth-info-panel" id="toothInfoPanel">
+                    <div class="info-panel-content">
+                        <button class="info-close" id="closeToothInfo">&times;</button>
+                        
+                        <!-- 3D Tooth Model -->
+                        <div class="tooth-3d-container" id="tooth3dContainer">
+                            <canvas id="tooth3dCanvas"></canvas>
+                            <div class="tooth-3d-label">Realistický 3D model zubu se otáčí</div>
+                        </div>
+                        
+                        <div class="tooth-icon-large" id="toothIconDefault">
+                            <i class="fas fa-tooth"></i>
+                        </div>
+                        <h3 id="toothTitle">Vyberte zub</h3>
+                        <p class="tooth-number" id="toothNumber">Klikněte na zub v mapě</p>
+                        
+                        <div class="tooth-details" id="toothDetails">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-exclamation-circle"></i> Možné příčiny bolesti:</h4>
+                                <ul id="toothCauses"></ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-lightbulb"></i> Doporučení:</h4>
+                                <ul id="toothRecommendations"></ul>
+                            </div>
+                            
+                            <div class="urgency-badge" id="urgencyBadge"></div>
+                            
+                            <a href="#contact" class="btn btn-primary btn-full">
+                                <i class="fas fa-calendar-plus"></i> Objednat se
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -527,7 +859,7 @@
                             </select>
                         </div>
 
-                        <div class="checkbox-list">
+                        <div class="checkbox-list" style="margin-top: 20px;">
                             <label><input type="checkbox"> Máte strach ze zubaře</label>
                             <label><input type="checkbox"> Měl/a jste komplikace při předchozím ošetření</label>
                             <label><input type="checkbox"> Škrípete zuby</label>
@@ -663,6 +995,231 @@
         </div>
     </footer>
 
+    <!-- Login/Register Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <button class="auth-modal-close">&times;</button>
+            
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <h2><i class="fas fa-sign-in-alt"></i> Přihlášení</h2>
+                <div class="auth-message" id="loginMessage"></div>
+                <form id="loginFormSubmit">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="vas@email.cz" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Heslo</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Přihlásit se</button>
+                </form>
+                <p class="auth-switch">Nemáte účet? <a href="#" id="showRegister">Zaregistrujte se</a></p>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form" id="registerForm" style="display: none;">
+                <h2><i class="fas fa-user-plus"></i> Registrace</h2>
+                <div class="auth-message" id="registerMessage"></div>
+                <form id="registerFormSubmit">
+                    <div class="form-group">
+                        <label>Jméno a příjmení</label>
+                        <input type="text" id="regName" placeholder="Jan Novák" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="regEmail" placeholder="vas@email.cz" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon</label>
+                        <input type="tel" id="regPhone" placeholder="+420 123 456 789" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Heslo</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Vytvořit účet</button>
+                </form>
+                <p class="auth-switch">Již máte účet? <a href="#" id="showLogin">Přihlaste se</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Dashboard -->
+    <div class="patient-dashboard" id="patientDashboard" style="display: none;">
+        <div class="dashboard-content">
+            <button class="dashboard-close">&times;</button>
+            
+            <div class="dashboard-header">
+                <div class="patient-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="patient-info">
+                    <h2 id="patientName">Loading...</h2>
+                    <p id="patientEmail">Loading...</p>
+                </div>
+                <button class="btn-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Odhlásit se
+                </button>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Personal Info Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-id-card"></i> Osobní údaje</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-label">Jméno:</span>
+                            <span class="info-value" id="dashName">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value" id="dashEmail">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Telefon:</span>
+                            <span class="info-value" id="dashPhone">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Registrován:</span>
+                            <span class="info-value" id="dashRegistered">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appointments Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-calendar-check"></i> Nadcházející návštěvy</h3>
+                    <div class="appointments-list" id="appointmentsList">
+                        <div class="empty-state">
+                            <i class="fas fa-calendar-plus"></i>
+                            <p>Zatím nemáte žádné objednané návštěvy</p>
+                            <a href="#contact" class="btn btn-primary">Objednat se nyní</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-history"></i> Historie návštěv</h3>
+                    <div class="history-list">
+                        <div class="history-item">
+                            <div class="history-date">15. 01. 2026</div>
+                            <div class="history-desc">Preventivní kontrola + dentální hygiena</div>
+                            <div class="history-status completed">Dokončeno</div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-date">10. 09. 2025</div>
+                            <div class="history-desc">Léčba kazu + bílá plomba</div>
+                            <div class="history-status completed">Dokončeno</div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-date">20. 03. 2025</div>
+                            <div class="history-desc">Preventivní prohlídka</div>
+                            <div class="history-status completed">Dokončeno</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-bolt"></i> Rychlé akce</h3>
+                    <div class="quick-actions">
+                        <a href="#contact" class="action-btn">
+                            <i class="fas fa-calendar-plus"></i>
+                            <span>Objednat návštěvu</span>
+                        </a>
+                        <a href="#questionnaire" class="action-btn">
+                            <i class="fas fa-file-medical"></i>
+                            <span>Zdravotní dotazník</span>
+                        </a>
+                        <a href="https://wa.me/420123456789" class="action-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Napsat přes WhatsApp</span>
+                        </a>
+                        <a href="#faq" class="action-btn">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Časté dotazy</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Payments Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-credit-card"></i> Platby k uhrazení</h3>
+                    <div class="payments-list" id="paymentsList">
+                        <div class="payment-item unpaid">
+                            <div class="payment-header">
+                                <div class="payment-title">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <span>Dentální hygiena</span>
+                                </div>
+                                <div class="payment-amount">890 Kč</div>
+                            </div>
+                            <div class="payment-details">
+                                <span class="payment-date">
+                                    <i class="fas fa-calendar"></i> Splatnost: 05. 02. 2026
+                                </span>
+                                <span class="payment-status status-unpaid">Nezaplaceno</span>
+                            </div>
+                            <button class="btn-pay">
+                                <i class="fas fa-check-circle"></i> Zaplatit online
+                            </button>
+                        </div>
+
+                        <div class="payment-item unpaid">
+                            <div class="payment-header">
+                                <div class="payment-title">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <span>Bílá plomba - doplatek</span>
+                                </div>
+                                <div class="payment-amount">450 Kč</div>
+                            </div>
+                            <div class="payment-details">
+                                <span class="payment-date">
+                                    <i class="fas fa-calendar"></i> Splatnost: 12. 02. 2026
+                                </span>
+                                <span class="payment-status status-unpaid">Nezaplaceno</span>
+                            </div>
+                            <button class="btn-pay">
+                                <i class="fas fa-check-circle"></i> Zaplatit online
+                            </button>
+                        </div>
+
+                        <div class="payment-item paid">
+                            <div class="payment-header">
+                                <div class="payment-title">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <span>Preventivní kontrola</span>
+                                </div>
+                                <div class="payment-amount">0 Kč</div>
+                            </div>
+                            <div class="payment-details">
+                                <span class="payment-date">
+                                    <i class="fas fa-calendar"></i> Uhrazeno: 15. 01. 2026
+                                </span>
+                                <span class="payment-status status-paid">
+                                    <i class="fas fa-check"></i> Zaplaceno
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payments-summary">
+                        <div class="summary-item">
+                            <span>Celkem k úhradě:</span>
+                            <strong>1 340 Kč</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="script.js" defer></script>
+    <script src="auth.js" defer></script>
+    <script src="dental-map.js" defer></script>
 </body>
 </html>
