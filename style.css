@@ -44,47 +44,67 @@ body {
 }
 
 .navbar {
-    padding: 1rem 0;
+    padding: 0.75rem 0;
 }
 
 .nav-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 2rem;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 1.25rem;
+    gap: 10px;
+    font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-dark);
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: translateY(-2px);
 }
 
 .logo-icon {
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.logo:hover .logo-icon {
+    transform: rotate(10deg);
+    color: var(--primary-dark);
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.nav-menu li:last-child {
+    margin-left: 1rem;
 }
 
 .nav-menu a {
     text-decoration: none;
     color: var(--text-dark);
     font-weight: 500;
+    font-size: 0.95rem;
     transition: color 0.3s ease;
     position: relative;
+    padding: 8px 0;
+    display: inline-block;
 }
 
 .nav-menu a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: 0;
     left: 0;
     width: 0;
     height: 2px;
@@ -98,6 +118,201 @@ body {
 
 .nav-menu a:hover::after {
     width: 100%;
+}
+
+/* Login button styling */
+.nav-menu .login-trigger {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--white) !important;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+    transition: all 0.3s ease;
+}
+
+.nav-menu .login-trigger::after {
+    display: none;
+}
+
+.nav-menu .login-trigger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.35);
+}
+
+.nav-menu .login-trigger i {
+    margin-right: 6px;
+}
+
+/* Oznámení banner */
+.announcement-banner {
+    background: linear-gradient(135deg, #bd1c0d 0%, #e42807 100%);
+    color: var(--white);
+    padding: 18px 0;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.4s ease-out;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.announcement-banner.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.announcement-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    position: relative;
+    padding: 0 50px;
+}
+
+@media (min-width: 768px) {
+    .announcement-content {
+        flex-direction: row;
+        gap: 20px;
+    }
+}
+
+.announcement-icon {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.95);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.9; }
+}
+
+.announcement-text {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 900px;
+}
+
+.announcement-text strong {
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+/* Plovoucí admin tlačítko */
+.admin-float-btn {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    z-index: 998;
+    transition: all 0.3s ease;
+}
+
+.admin-float-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
+}
+
+.admin-float-btn i {
+    animation: rotateGear 4s linear infinite;
+}
+
+@keyframes rotateGear {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Tlačítko pro znovuotevření oznámení */
+.announcement-reopen {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    color: var(--white);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 0 0 20px 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    z-index: 998;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.announcement-reopen:hover {
+    transform: translateX(-50%) translateY(3px);
+    box-shadow: 0 6px 16px rgba(74, 144, 226, 0.5);
+}
+
+.announcement-reopen i {
+    animation: bellRing 2s ease-in-out infinite;
+}
+
+@keyframes bellRing {
+    0%, 100% { transform: rotate(0deg); }
+    10%, 30% { transform: rotate(-10deg); }
+    20%, 40% { transform: rotate(10deg); }
+    50% { transform: rotate(0deg); }
+}
+
+.announcement-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--white);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.announcement-close:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-50%) rotate(90deg) scale(1.1);
+}
+
+.announcement-close i {
+    font-size: 1rem;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .mobile-menu-toggle {
@@ -120,7 +335,7 @@ body {
 
 /* hero.lib */
 .hero {
-    margin-top: 80px;
+    margin-top: 145px; /* Zvýšeno kvůli většímu announcement banneru */
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: var(--white);
     padding: 100px 0 80px;
@@ -312,6 +527,34 @@ section {
 .feature-text {
     font-weight: 500;
     color: var(--text-dark);
+}
+
+.personal-note {
+    margin-top: 30px;
+    padding: 25px;
+    background: var(--bg-accent);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    position: relative;
+}
+
+.personal-note i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    opacity: 0.3;
+    margin-bottom: 10px;
+}
+
+.personal-note p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.personal-note strong {
+    color: var(--primary-color);
+    font-size: 1.1rem;
 }
 
 .about-image {
@@ -607,7 +850,7 @@ section {
     font-size: 0.9rem;
 }
 
-/* FAQ Section */
+
 .faq {
     background: var(--bg-light);
 }
@@ -680,7 +923,7 @@ section {
     padding-top: 10px;
 }
 
-/* Footer */
+
 .footer {
     background: var(--text-dark);
     color: var(--white);
@@ -712,7 +955,7 @@ section {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Animations */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -724,7 +967,7 @@ section {
     }
 }
 
-/* Responsive Design */
+
 @media (max-width: 1100px) {
     .nav-menu {
         font-size: 0.9rem;
@@ -787,7 +1030,7 @@ section {
         grid-template-columns: 1fr;
     }
 
-    .   grid-template-columns: 1fr;
+       grid-template-columns: 1fr;
     }
 
     .services-grid {
@@ -840,7 +1083,7 @@ section {
    NOVÉ UN IKÁTNÍ FUNKCE
    ====================== */
 
-/* Scroll Progress Bar */
+
 .scroll-progress {
     position: fixed;
     top: 0;
@@ -852,7 +1095,7 @@ section {
     transition: width 0.1s ease;
 }
 
-/* Dark Mode Toggle */
+
 .dark-mode-toggle {
     position: fixed;
     top: 100px;
@@ -875,24 +1118,27 @@ section {
     background: var(--primary-dark);
 }
 
-/* Back to Top Button */
+
 .back-to-top {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    width: 55px;
-    height: 55px;
+    padding: 12px 24px;
     background: var(--primary-color);
     border: none;
-    border-radius: 50%;
+    border-radius: 30px;
     color: var(--white);
-    font-size: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
     cursor: pointer;
     box-shadow: var(--shadow-lg);
     z-index: 999;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .back-to-top.show {
@@ -903,13 +1149,13 @@ section {
 .back-to-top:hover {
     transform: translateY(-5px);
     background: var(--primary-dark);
+    box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
 }
 
-/* WhatsApp Float Button */
 .whatsapp-float {
     position: fixed;
-    bottom: 100px;
-    right: 30px;
+    bottom: 30px;
+    left: 30px;
     width: 60px;
     height: 60px;
     background: #25D366;
@@ -940,7 +1186,7 @@ section {
     }
 }
 
-/* Stats Counter Section */
+
 .stats-section {
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     padding: 60px 0;
@@ -974,7 +1220,7 @@ section {
     opacity: 0.95;
 }
 
-/* Before/After Section */
+
 .before-after-section {
     background: var(--bg-light);
     padding: 80px 0;
@@ -1024,6 +1270,7 @@ section {
     border-radius: 20px;
     font-weight: 600;
     z-index: 2;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .before-image .image-label {
@@ -1139,30 +1386,30 @@ section {
     font-size: 1.2rem;
 }
 
-/* Responsive pro nové funkce */
+
 @media (max-width: 968px) {
     .before-after-container {
         grid-template-columns: 1fr;
         gap: 40px;
     }
 
-    .dark-mode-toggle,
-    .whatsapp-float,
-    .back-to-top {
+    .dark-mode-toggle {
         right: 20px;
     }
 
     .whatsapp-float {
-        bottom: 80px;
+        left: 20px;
+        bottom: 20px;
         width: 55px;
         height: 55px;
         font-size: 1.8rem;
     }
 
     .back-to-top {
-        width: 50px;
-        height: 50px;
-        font-size: 1.3rem;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
     }
 
     .dark-mode-toggle {
@@ -1191,7 +1438,7 @@ section {
     }
 }
 
-/* Questionnaire Section */
+
 .questionnaire-section {
     background: var(--white);
     padding: 80px 0;
@@ -1274,7 +1521,7 @@ section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .checkbox-list label {
@@ -1300,10 +1547,19 @@ section {
     border-top: 1px solid var(--bg-light);
 }
 
-/* Dark Mode Styles */
+
 body.dark-mode {
     background: #1a1a1a;
     color: #e0e0e0;
+}
+
+body.dark-mode .announcement-banner {
+    background: linear-gradient(135deg, #b5380a 0%, #0d1f2d 100%);
+}
+
+body.dark-mode .admin-float-btn,
+body.dark-mode .announcement-reopen {
+    background: linear-gradient(135deg, #1a3a52 0%, #0d1f2d 100%);
 }
 
 body.dark-mode .header {
@@ -1311,12 +1567,20 @@ body.dark-mode .header {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+body.dark-mode .logo {
+    color: #e0e0e0;
+}
+
 body.dark-mode .nav-menu a {
     color: #e0e0e0;
 }
 
 body.dark-mode .hero {
-    background: linear-gradient(135deg, #2d5a8f 0%, #1e3a5f 100%);
+    background: linear-gradient(135deg, #1a3a52 0%, #0d1f2d 100%);
+}
+
+body.dark-mode .hero::before {
+    opacity: 0.2;
 }
 
 body.dark-mode .about,
@@ -1365,11 +1629,1719 @@ body.dark-mode .questionnaire-form {
     background: #2d2d2d;
 }
 
+body.dark-mode .questionnaire-section {
+    background: #1a1a1a;
+}
+
+body.dark-mode .questionnaire-intro h3,
+body.dark-mode .questionnaire-form h4 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .questionnaire-intro li {
+    color: #b0b0b0;
+}
+
+body.dark-mode .questionnaire-form label {
+    color: #e0e0e0;
+}
+
 body.dark-mode .before-after-section {
     background: #1a1a1a;
 }
 
+body.dark-mode .personal-note {
+    background: #2d2d2d;
+    border-left-color: var(--primary-color);
+}
+
+body.dark-mode .personal-note p {
+    color: #b0b0b0;
+}
+
+body.dark-mode .personal-note strong {
+    color: var(--primary-color);
+}
+
+body.dark-mode .booking-placeholder {
+    background: #2d2d2d !important;
+}
+
+body.dark-mode .booking-placeholder h2 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .booking-placeholder p {
+    color: #b0b0b0 !important;
+}
+
+body.dark-mode .footer {
+    background: #1a1a1a;
+    border-top-color: #404040;
+}
+
+body.dark-mode .footer h4 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .footer p,
+body.dark-mode .footer a {
+    color: #b0b0b0;
+}
+
+body.dark-mode .footer a:hover {
+    color: var(--primary-color);
+}
+
+body.dark-mode .footer-bottom {
+    border-top-color: #404040;
+}
+
+/* ================================
+   INTERACTIVE DENTAL MAP - Modern SVG Design
+   ================================ */
+
+.dental-map-section {
+    background: var(--white);
+    padding: 80px 0;
+}
+
+.dental-map-container {
+    display: grid;
+    grid-template-columns: 1.2fr 400px;
+    gap: 40px;
+    align-items: start;
+}
+
+.dental-map-visual {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e9ecef;
+}
+
+.teeth-diagram {
+    position: relative;
+}
+
+.dental-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* SVG Tooth Styles */
+.svg-tooth {
+    fill: #ffffff;
+    stroke: #dee2e6;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.svg-tooth:hover {
+    fill: #e3f2fd;
+    stroke: #4a90e2;
+    stroke-width: 3;
+    filter: drop-shadow(0 6px 12px rgba(74, 144, 226, 0.3));
+}
+
+.svg-tooth.selected {
+    fill: #4CAF50;
+    stroke: #45a049;
+    stroke-width: 3;
+    animation: toothPulse 0.6s ease;
+}
+
+.jaw-label {
+    fill: #6c757d;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Legend */
+.dental-legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.legend-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 2px solid #dee2e6;
+}
+
+.legend-dot.normal {
+    background: #ffffff;
+}
+
+.legend-dot.selected {
+    background: #4CAF50;
+    border-color: #45a049;
+}
+
+.legend-item i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* Info Panel */
+.tooth-info-panel {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: 100px;
+    min-height: 400px;
+}
+
+/* 3D Tooth Model - Three.js */
+.tooth-3d-container {
+    width: 100%;
+    height: 350px;
+    display: none;
+    margin-bottom: 20px;
+    position: relative;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.tooth-3d-container.active {
+    display: block;
+}
+
+#tooth3dCanvas {
+    width: 100% !important;
+    height: 320px !important;
+    display: block;
+    cursor: grab;
+}
+
+#tooth3dCanvas:active {
+    cursor: grabbing;
+}
+
+.tooth-3d-label {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Info Panel */
+    background: var(--white);
+    padding: 80px 0;
+}
+
+.dental-map-container {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 40px;
+    align-items: start;
+}
+
+.dental-map-wrapper {
+    background: linear-gradient(to bottom, #fef7f4 0%, #fff5f0 100%);
+    padding: 60px 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.jaw-section {
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.jaw-section:last-child {
+    margin-bottom: 0;
+}
+
+.jaw-section h4 {
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+/* Dásně - realistické pozadí */
+.teeth-row {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 35px 20px 20px;
+    background: linear-gradient(to bottom, 
+        #ffb3b3 0%,
+        #ff9999 15%,
+        #ff8585 40%,
+        #ff7575 100%
+    );
+    border-radius: 80px 80px 40px 40px;
+    box-shadow: 
+        inset 0 3px 8px rgba(0, 0, 0, 0.15),
+        inset 0 -2px 6px rgba(255, 255, 255, 0.3),
+        0 4px 12px rgba(255, 100, 100, 0.2);
+}
+
+/* Zadní řada (stoličky 6-8) - menší dásně */
+.teeth-row-back {
+    margin-top: 10px;
+    padding: 15px 10px;
+    max-width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 40px;
+}
+
+.lower-jaw .teeth-row {
+    border-radius: 40px 40px 80px 80px;
+    padding: 20px 20px 35px;
+    background: linear-gradient(to top, 
+        #ffb3b3 0%,
+        #ff9999 15%,
+        #ff8585 40%,
+        #ff7575 100%
+    );
+}
+
+.lower-jaw .teeth-row-back {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+/* Základní styl zubu */
+.tooth {
+    width: 42px;
+    height: 55px;
+    background: linear-gradient(145deg, 
+        #ffffff 0%,
+        #fafafa 20%,
+        #f5f5f5 50%,
+        #ececec 100%
+    );
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 6px;
+}
+
+/* Anatomické tvary jednotlivých typů zubů */
+
+/* Řezáky (1, 2) - ploché, obdélníkové */
+.tooth[data-tooth$="1"],
+.tooth[data-tooth$="2"] {
+    width: 38px;
+    height: 52px;
+    border-radius: 3px 3px 8px 8px;
+    clip-path: polygon(
+        15% 0%, 85% 0%,
+        100% 15%, 100% 90%,
+        90% 100%, 10% 100%,
+        0% 90%, 0% 15%
+    );
+}
+
+/* Špičáky (3) - špičaté, silnější */
+.tooth[data-tooth$="3"] {
+    width: 40px;
+    height: 58px;
+    border-radius: 5px 5px 10px 10px;
+    clip-path: polygon(
+        30% 0%, 70% 0%,
+        100% 20%, 100% 85%,
+        85% 100%, 15% 100%,
+        0% 85%, 0% 20%
+    );
+    background: linear-gradient(145deg, 
+        #fffffe 0%,
+        #f9f9f9 30%,
+        #f0f0f0 100%
+    );
+}
+
+/* Premoláry (4, 5) - širší, lehce hranatější */
+.tooth[data-tooth$="4"],
+.tooth[data-tooth$="5"] {
+    width: 44px;
+    height: 50px;
+    border-radius: 8px 8px 12px 12px;
+}
+
+/* Moláry (6, 7, 8) - největší, s hrbolky */
+.tooth[data-tooth$="6"],
+.tooth[data-tooth$="7"],
+.tooth[data-tooth$="8"] {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px 10px 14px 14px;
+}
+
+/* Vizuální efekt kořene v dásni */
+.tooth::before {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 15px;
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    border-radius: 0 0 50% 50%;
+    z-index: -1;
+}
+
+/* Hover efekt */
+.tooth:hover {
+    transform: translateY(-8px) scale(1.08);
+    background: linear-gradient(145deg, 
+        #4a90e2 0%,
+        #3a7bc8 50%,
+        #2d6bb3 100%
+    );
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: 
+        0 8px 20px rgba(74, 144, 226, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3),
+        0 0 0 3px rgba(74, 144, 226, 0.2);
+    z-index: 10;
+}
+
+.tooth.selected {
+    background: linear-gradient(145deg, 
+        #4CAF50 0%,
+        #45a049 50%,
+        #3d8b40 100%
+    );
+    color: rgba(255, 255, 255, 0.95);
+    transform: translateY(-8px) scale(1.12);
+    box-shadow: 
+        0 10px 25px rgba(76, 175, 80, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.4),
+        0 0 0 4px rgba(76, 175, 80, 0.3);
+    z-index: 15;
+}
+
+.tooth-info-panel {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: 100px;
+    min-height: 400px;
+}
+
+.info-panel-content {
+    position: relative;
+}
+
+.info-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--bg-light);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+.info-close:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: rotate(90deg);
+}
+
+.tooth-icon-large {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tooth-icon-large i {
+    font-size: 4rem;
+    color: var(--primary-color);
+    opacity: 0.3;
+}
+
+.tooth-info-panel.active .tooth-icon-large i {
+    opacity: 1;
+    animation: toothPulse 0.5s ease;
+}
+
+.tooth-info-panel h3 {
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+.tooth-number {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.tooth-details {
+    display: none;
+}
+
+.tooth-info-panel.active .tooth-details {
+    display: block;
+    animation: fadeInUp 0.4s ease;
+}
+
+.detail-section {
+    margin-bottom: 25px;
+}
+
+.detail-section h4 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.detail-section li {
+    padding: 8px 0 8px 25px;
+    position: relative;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.detail-section li:before {
+    content: "•";
+    position: absolute;
+    left: 8px;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+}
+
+.urgency-badge {
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.urgency-badge.high {
+    background: #fff3cd;
+    color: #856404;
+    border: 2px solid #ffc107;
+}
+
+.urgency-badge.medium {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 2px solid #17a2b8;
+}
+
+.urgency-badge.low {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #28a745;
+}
+
+@keyframes toothPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Dark Mode */
+body.dark-mode .dental-map-section {
+    background: #1a1a1a;
+}
+
+body.dark-mode .dental-map-visual {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border-color: #404040;
+}
+
+body.dark-mode .dental-legend {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+body.dark-mode .legend-item {
+    color: #b0b0b0;
+}
+
+body.dark-mode .svg-tooth {
+    fill: #e0e0e0;
+    stroke: #555;
+}
+
+body.dark-mode .svg-tooth:hover {
+    fill: #1e3a5f;
+    stroke: #4a90e2;
+}
+
+body.dark-mode .tooth-3d-container {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+}
+
+body.dark-mode .tooth-3d-label {
+    background: rgba(45, 45, 45, 0.8);
+    color: #b0b0b0;
+}
+
+body.dark-mode .svg-tooth.selected {
+    fill: #4CAF50;
+    stroke: #45a049;
+}
+
+body.dark-mode .jaw-label {
+    fill: #b0b0b0;
+}
+
+body.dark-mode .tooth-info-panel {
+    background: #2d2d2d;
+}
+
+body.dark-mode .tooth-info-panel h3 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .detail-section li {
+    color: #b0b0b0;
+}
+
+body.dark-mode .info-close {
+    background: #1a1a1a;
+    color: #b0b0b0;
+}
+
+@media (max-width: 968px) {
+    .dental-map-container {
+        grid-template-columns: 1fr;
+    }
+
+    .tooth-info-panel {
+        position: static;
+        margin-top: 30px;
+    }
+
+    .info-close {
+        display: block;
+    }
+
+    .teeth-row {
+        gap: 6px;
+    }
+
+    .tooth {
+        width: 42px;
+        height: 52px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .dental-map-wrapper {
+        padding: 20px;
+    }
+
+    .tooth {
+        width: 38px;
+        height: 48px;
+        font-size: 0.75rem;
+    }
+
+    .teeth-row {
+        gap: 4px;
+    }
+}
+
+/* ================================
+   PATIENT LOGIN & DASHBOARD
+   ================================ */
+
+/* Auth Modal */
+.auth-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.auth-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Admin Panel Modal */
+.admin-panel-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10001;
+    animation: fadeIn 0.3s ease;
+}
+
+.admin-panel-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-panel-content {
+    background: var(--white);
+    padding: 0;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease;
+}
+
+.admin-panel-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    padding: 25px 30px;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-panel-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.admin-panel-header i {
+    margin-right: 10px;
+}
+
+.admin-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--white);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.admin-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.admin-login,
+.admin-editor {
+    padding: 30px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.admin-login h4,
+.admin-editor h4 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+}
+
+/* Admin záložky */
+.admin-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.admin-tab {
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    bottom: -2px;
+}
+
+.admin-tab:hover {
+    color: var(--primary-color);
+    background: rgba(74, 144, 226, 0.05);
+}
+
+.admin-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    font-weight: 600;
+}
+
+.admin-tab i {
+    margin-right: 8px;
+}
+
+.admin-tab-content {
+    display: none;
+}
+
+.admin-tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Reminder preview */
+.reminder-preview {
+    margin-top: 25px;
+    padding: 20px;
+    background: var(--bg-light);
+    border-radius: 8px;
+}
+
+.reminder-preview h5 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+.reminder-preview h5 i {
+    margin-right: 8px;
+    color: var(--primary-color);
+}
+
+.preview-box {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.preview-box strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+.preview-box p {
+    margin: 0;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+
+/* Admin termíny */
+.add-appointment-form,
+.appointments-list-admin,
+.send-reminders-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--bg-light);
+    border-radius: 8px;
+}
+
+.add-appointment-form h5,
+.appointments-list-admin h5,
+.send-reminders-section h5 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+.add-appointment-form h5 i,
+.appointments-list-admin h5 i,
+.send-reminders-section h5 i {
+    margin-right: 8px;
+    color: var(--primary-color);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.appointment-item-admin {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.appointment-item-admin .appointment-info {
+    flex: 1;
+}
+
+.appointment-item-admin .appointment-date {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.appointment-item-admin .appointment-patient {
+    color: var(--text-dark);
+    margin-bottom: 3px;
+}
+
+.appointment-item-admin .appointment-contact {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.appointment-item-admin .btn-delete {
+    background: #dc3545;
+    color: var(--white);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.appointment-item-admin .btn-delete:hover {
+    background: #c82333;
+}
+
+.send-reminders-section p {
+    margin: 10px 0 15px 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.admin-hint {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    text-align: center;
+    font-style: italic;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.admin-actions .btn {
+    flex: 1;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-modal-content {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 16px;
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    animation: slideUp 0.3s ease;
+}
+
+.auth-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.auth-modal-close:hover {
+    background: var(--bg-light);
+    color: var(--primary-color);
+    transform: rotate(90deg);
+}
+
+.auth-form h2 {
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-form h2 i {
+    color: var(--primary-color);
+}
+
+.auth-form .form-group {
+    margin-bottom: 20px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-light);
+}
+
+.auth-switch a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+.auth-message {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: none;
+    animation: slideDown 0.3s ease;
+}
+
+.auth-message.show {
+    display: block;
+}
+
+.auth-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.auth-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.auth-message i {
+    margin-right: 8px;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Patient Dashboard */
+.patient-dashboard {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+.dashboard-content {
+    background: var(--bg-light);
+    min-height: 100vh;
+    padding: 30px 20px;
+    position: relative;
+}
+
+.dashboard-close {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--white);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+
+.dashboard-close:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: rotate(90deg);
+}
+
+.dashboard-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--white);
+    padding: 40px 30px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-lg);
+    max-width: 1200px;
+    margin: 0 auto 30px;
+}
+
+.patient-avatar {
+    font-size: 5rem;
+    opacity: 0.9;
+}
+
+.patient-info {
+    flex: 1;
+}
+
+.patient-info h2 {
+    margin: 0 0 5px 0;
+    font-size: 2rem;
+}
+
+.patient-info p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+.btn-logout {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid var(--white);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-logout:hover {
+    background: var(--white);
+    color: var(--primary-color);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.dashboard-card h3 {
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--bg-light);
+}
+
+.dashboard-card h3 i {
+    color: var(--primary-color);
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--bg-light);
+}
+
+.info-label {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.info-value {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: var(--primary-color);
+    opacity: 0.3;
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    margin-bottom: 20px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.history-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 15px;
+    padding: 15px;
+    background: var(--bg-light);
+    border-radius: 8px;
+    align-items: center;
+}
+
+.history-date {
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.history-desc {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.history-status {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.history-status.completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: var(--bg-light);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.action-btn:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+.action-btn i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover i {
+    color: var(--white);
+}
+
+.action-btn span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Payments Section */
+.payments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.payment-item {
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid var(--bg-light);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.payment-item.unpaid {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+    border-color: #ffe0e0;
+}
+
+.payment-item.paid {
+    background: linear-gradient(135deg, #f0f9f4 0%, #ffffff 100%);
+    border-color: #d4edda;
+    opacity: 0.8;
+}
+
+.payment-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.payment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.payment-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 1.05rem;
+}
+
+.payment-title i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.payment-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.payment-item.paid .payment-amount {
+    color: var(--secondary-color);
+}
+
+.payment-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--bg-light);
+}
+
+.payment-date {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.payment-date i {
+    font-size: 0.85rem;
+}
+
+.payment-status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-unpaid {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-paid {
+    background: #d4edda;
+    color: #155724;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-pay {
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-pay:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+}
+
+.btn-pay i {
+    font-size: 1.1rem;
+}
+
+/* Dark mode pro admin záložky */
+body.dark-mode .admin-tabs {
+    border-bottom-color: #444;
+}
+
+body.dark-mode .admin-tab {
+    color: #b0b0b0;
+}
+
+body.dark-mode .admin-tab:hover {
+    background: rgba(74, 144, 226, 0.15);
+}
+
+body.dark-mode .admin-tab.active {
+    color: #4A90E2;
+}
+
+body.dark-mode .reminder-preview {
+    background: #1a1a1a;
+}
+
+body.dark-mode .preview-box {
+    background: #2d2d2d;
+}
+
+body.dark-mode .add-appointment-form,
+body.dark-mode .appointments-list-admin,
+body.dark-mode .send-reminders-section {
+    background: #1a1a1a;
+}
+
+body.dark-mode .appointment-item-admin {
+    background: #2d2d2d;
+}
+
+.payments-summary {
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    border-radius: 12px;
+    color: var(--white);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.summary-item strong {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.payment-success {
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #3ea85f 100%);
+    color: var(--white);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    animation: slideDown 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.payment-success i {
+    font-size: 1.2rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark Mode for Auth & Dashboard */
+body.dark-mode .auth-modal-content,
+body.dark-mode .admin-panel-content {
+    background: #2d2d2d;
+}
+
+body.dark-mode .admin-panel-header {
+    background: linear-gradient(135deg, #1a3a52 0%, #0d1f2d 100%);
+}
+
+body.dark-mode .admin-login h4,
+body.dark-mode .admin-editor h4 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .admin-hint {
+    color: #b0b0b0;
+}
+
+body.dark-mode .auth-form h2 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .auth-form label {
+    color: #e0e0e0;
+}
+
+body.dark-mode .auth-form input {
+    background: #1a1a1a;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+body.dark-mode .dashboard-content {
+    background: #1a1a1a;
+}
+
+body.dark-mode .dashboard-card {
+    background: #2d2d2d;
+}
+
+body.dark-mode .dashboard-card h3 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .info-label {
+    color: #b0b0b0;
+}
+
+body.dark-mode .info-value {
+    color: #e0e0e0;
+}
+
+body.dark-mode .history-item {
+    background: #1a1a1a;
+}
+
+body.dark-mode .history-date {
+    color: #e0e0e0;
+}
+
+body.dark-mode .action-btn {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .action-btn:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+body.dark-mode .payment-item.unpaid {
+    background: linear-gradient(135deg, #3a2525 0%, #2d2d2d 100%);
+    border-color: #4a3535;
+}
+
+body.dark-mode .payment-item.paid {
+    background: linear-gradient(135deg, #2a3a2f 0%, #2d2d2d 100%);
+    border-color: #3a4a3f;
+}
+
+body.dark-mode .payment-title {
+    color: #e0e0e0;
+}
+
+body.dark-mode .payment-date {
+    color: #b0b0b0;
+}
+
+body.dark-mode .payment-details {
+    border-top-color: #404040;
+}
+
+body.dark-mode .payments-summary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+}
+
+body.dark-mode .dashboard-close {
+    background: #2d2d2d;
+    color: #e0e0e0;
+}
+
 @media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .patient-avatar {
+        font-size: 4rem;
+    }
+
+    .btn-logout {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .history-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .auth-modal-content {
+        padding: 30px 20px;
+    }
+
     .form-row,
     .checkbox-list {
         grid-template-columns: 1fr;
