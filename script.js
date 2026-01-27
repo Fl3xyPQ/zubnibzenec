@@ -67,7 +67,7 @@ if (contactForm) {
             message: document.getElementById('message').value
         };
  
-        // TBD
+        // TBD – formulář, musí se propojit – WIP!! (zatím nefunkční –> pouze zpráva success...)
         console.log('Form data:', formData);
 
         // Sucess = musí se dodělat
@@ -145,4 +145,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
 });
