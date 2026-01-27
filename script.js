@@ -67,7 +67,7 @@ if (contactForm) {
             message: document.getElementById('message').value
         };
  
-        // TBD – formulář, musí se propojit – WIP!! (zatím nefunkční –> pouze zpráva success...)
+        // TBD
         console.log('Form data:', formData);
 
         // Sucess = musí se dodělat
@@ -125,6 +125,199 @@ window.addEventListener('scroll', () => {
     });
 });
 
+/* ========================================
+   NOVÉ UNIKÁTNÍ FUNKCE
+   ======================================== */
+
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.querySelector('.scroll-progress').style.width = scrolled + '%';
+});
+
+// Back to Top Button
+const backToTop = document.querySelector('.back-to-top');
+
+if (backToTop) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTop.classList.add('show');
+        } else {
+            backToTop.classList.remove('show');
+        }
+    });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// Dark Mode Toggle
+const darkModeToggle = document.querySelector('.dark-mode-toggle');
+let darkMode = localStorage.getItem('darkMode') === 'true';
+
+function enableDarkMode() {
+    document.body.classList.add('dark-mode');
+    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    localStorage.setItem('darkMode', 'true');
+}
+
+function disableDarkMode() {
+    document.body.classList.remove('dark-mode');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    localStorage.setItem('darkMode', 'false');
+}
+
+if (darkMode) {
+    enableDarkMode();
+}
+
+if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+        darkMode = !darkMode;
+        if (darkMode) {
+            enableDarkMode();
+        } else {
+            disableDarkMode();
+        }
+    });
+}
+
+// Stats Counter Animation
+const animateCounter = (element) => {
+    const target = parseInt(element.getAttribute('data-target'));
+    const duration = 2000; // 2 seconds
+    const step = target / (duration / 16); // 60fps
+    let current = 0;
+
+    const updateCounter = () => {
+        current += step;
+        if (current < target) {
+            element.textContent = Math.floor(current);
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.textContent = target;
+        }
+    };
+
+    updateCounter();
+};
+
+// Observe stats section
+const statsSection = document.querySelector('.stats-section');
+if (statsSection) {
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const numbers = entry.target.querySelectorAll('.stat-number');
+                numbers.forEach(num => animateCounter(num));
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    statsObserver.observe(statsSection);
+}
+
+// Before/After Slider
+const comparisonSlider = document.getElementById('comparisonSlider');
+if (comparisonSlider) {
+    const afterImage = document.querySelector('.after-image');
+    const sliderButton = document.querySelector('.slider-button');
+
+    const updateSlider = (value) => {
+        afterImage.style.clipPath = `polygon(${value}% 0, 100% 0, 100% 100%, ${value}% 100%)`;
+        sliderButton.style.left = `${value}%`;
+    };
+
+    comparisonSlider.addEventListener('input', (e) => {
+        updateSlider(e.target.value);
+    });
+
+    // Touch and mouse support
+    let isDragging = false;
+    const wrapper = document.querySelector('.before-after-wrapper');
+
+    const handleMove = (clientX) => {
+        if (!isDragging && !clientX) return;
+        const rect = wrapper.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+        comparisonSlider.value = percentage;
+        updateSlider(percentage);
+    };
+
+    // Mouse events
+    wrapper.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        handleMove(e.clientX);
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            handleMove(e.clientX);
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    // Touch events
+    wrapper.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        handleMove(e.touches[0].clientX);
+    });
+
+    wrapper.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            e.preventDefault();
+            handleMove(e.touches[0].clientX);
+        }
+    });
+
+    wrapper.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+}
+
+// Health Questionnaire Toggle
+const startQuestionnaire = document.getElementById('startQuestionnaire');
+const questionnaireForm = document.getElementById('questionnaireForm');
+const questionnaireIntro = document.querySelector('.questionnaire-intro');
+
+if (startQuestionnaire) {
+    startQuestionnaire.addEventListener('click', () => {
+        questionnaireIntro.style.display = 'none';
+        questionnaireForm.style.display = 'block';
+    });
+}
+
+// PDF Download (placeholder)
+const downloadPDF = document.getElementById('downloadPDF');
+if (downloadPDF) {
+    downloadPDF.addEventListener('click', () => {
+        alert('Funkce stahování PDF bude brzy k dispozici!');
+    });
+}
+
+// Health Form Submit
+const healthForm = document.getElementById('healthForm');
+if (healthForm) {
+    healthForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Děkujeme! Váš dotazník byl odeslán.');
+        questionnaireForm.style.display = 'none';
+        questionnaireIntro.style.display = 'block';
+        healthForm.reset();
+    });
+}
+
 // faq 
 document.addEventListener('DOMContentLoaded', () => {
     const faqQuestions = document.querySelectorAll('.faq-question');
@@ -145,5 +338,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
 });
