@@ -208,7 +208,7 @@ body {
     font-size: 1.15rem;
 }
 
-/* Plovoucí admin tlačítko */
+/* Plovoucí admin tlačítko - SKRYTO (aktivace přes Ctrl+Shift+A) */
 .admin-float-btn {
     position: fixed;
     bottom: 90px;
@@ -221,7 +221,7 @@ body {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
-    display: flex;
+    display: none; /* SKRYTO - aktivace přes klávesovou zkratku */
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
