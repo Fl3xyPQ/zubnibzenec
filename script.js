@@ -1,3 +1,19 @@
+// ==================================
+// ADMIN PANEL - Klávesová zkratka
+// ==================================
+// Aktivace admin panelu pomocí Ctrl+Shift+A
+document.addEventListener('keydown', (e) => {
+    // Ctrl+Shift+A nebo Cmd+Shift+A (Mac)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        const adminPanel = document.getElementById('adminPanel');
+        if (adminPanel) {
+            adminPanel.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+});
+
 // Mobil menu
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
